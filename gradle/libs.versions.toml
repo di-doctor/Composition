@@ -1,6 +1,6 @@
 [versions]
 agp = "8.3.0-alpha07"
-kotlin = "1.9.0"
+kotlin = "2.0.0"
 core-ktx = "1.13.1"
 junit = "4.13.2"
 androidx-test-ext-junit = "1.2.1"
@@ -21,4 +21,5 @@ constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayo
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinParser = {id = "org.jetbrains.kotlin.plugin.parcelize",version = "2.0.20-RC2"}
 

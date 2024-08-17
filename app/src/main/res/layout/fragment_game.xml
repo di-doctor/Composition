@@ -61,6 +61,7 @@
         app:layout_constraintStart_toEndOf="@id/tv_left_number"
         app:layout_constraintTop_toTopOf="@id/tv_left_number"
         />
+
     <TextView
         android:id="@+id/tv_option_1"
         style="@style/OptionTextStyle"
@@ -140,7 +141,6 @@
         android:layout_height="wrap_content"
         android:text="@string/progress_answers"
         android:layout_margin="16dp"
-        app:layout_constraintVertical_chainStyle="spread"
         app:layout_constraintTop_toBottomOf="@id/tv_left_number"
         app:layout_constraintBottom_toTopOf="@id/progress_bar"
         />
