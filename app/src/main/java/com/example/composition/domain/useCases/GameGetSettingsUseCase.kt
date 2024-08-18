@@ -1,5 +1,6 @@
 package com.example.composition.domain.useCases
 
+import com.example.composition.data.GameRepositoryImpl
 import com.example.composition.domain.entity.GameSettings
 import com.example.composition.domain.entity.Level
 import com.example.composition.domain.entity.Question
@@ -11,5 +12,9 @@ class GameGetSettingsUseCase(
     operator fun invoke(level:Level):GameSettings{
        return repository.getGameSettings(level = level)
     }
+}
+
+fun main() {
+
 }
 

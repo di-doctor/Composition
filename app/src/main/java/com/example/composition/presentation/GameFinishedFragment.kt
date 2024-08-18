@@ -7,16 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
-import com.example.composition.R
 import com.example.composition.databinding.FragmentGameFinishedBinding
 import com.example.composition.domain.entity.GameResult
 import java.lang.RuntimeException
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
 
 class GameFinishedFragment : Fragment() {
 
@@ -28,7 +21,6 @@ class GameFinishedFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         parseArgs()
-
     }
 
     override fun onCreateView(
@@ -41,6 +33,18 @@ class GameFinishedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.gameresultTest.text = gameResult.toString()
+        addListenerOnBackPressed()
+        listenerOnButtonRetry()
+    }
+
+    private fun listenerOnButtonRetry() {
+        binding.buttonRetry.setOnClickListener {
+            retryGame()
+        }
+    }
+
+    private fun addListenerOnBackPressed() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -49,9 +53,6 @@ class GameFinishedFragment : Fragment() {
                 }
             }
         )
-        binding.buttonRetry.setOnClickListener{
-            retryGame()
-        }
     }
 
     private fun parseArgs() {
@@ -83,7 +84,5 @@ class GameFinishedFragment : Fragment() {
                     putParcelable(KEY_GAME_RESULT, gameResult)
                 }
             }
-
-
     }
 }
