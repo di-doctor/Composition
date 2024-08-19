@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
+import com.example.composition.R
 import com.example.composition.databinding.FragmentGameFinishedBinding
 import com.example.composition.domain.entity.GameResult
 import java.lang.RuntimeException
+import kotlin.math.round
 
 class GameFinishedFragment : Fragment() {
 
@@ -28,14 +30,60 @@ class GameFinishedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGameFinishedBinding.inflate(inflater, container, false)
+        setEmoji()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.gameresultTest.text = gameResult.toString()
+        showResult()
         addListenerOnBackPressed()
         listenerOnButtonRetry()
+
+    }
+
+    private fun showResult() {
+
+        with(binding) {
+            tvRequiredAnswers.text = getStringFromResource(
+                R.string.required_score,
+                gameResult.gameSettings.minCountOfRightAnswers.toString()
+            )
+
+            tvScoreAnswers.text = getStringFromResource(
+                R.string.score_answers, gameResult
+                    .countOfRightAnswers.toString()
+            )
+
+            binding.tvRequiredPercentage.text = getStringFromResource(
+                R.string.required_percentage, gameResult
+                    .gameSettings
+                    .minPercentOfRightAnswers.toString()
+            )
+
+            val roundedNumber = round(
+                gameResult.countOfRightAnswers.toDouble()
+                        / gameResult.countOfQuestions * 100
+            ).toInt()
+            tvScorePercentage.text = getStringFromResource(
+                R.string.score_percentage,
+                roundedNumber.toString()
+            )
+        }
+    }
+
+    private fun getStringFromResource(resString: Int, param: String): String {
+        val resource = requireActivity().resources
+        return resource.getString(resString, param)
+    }
+
+    private fun setEmoji() {
+        if (gameResult.winner) {
+            binding.emojiResult.setImageResource(R.drawable.ic_smile)
+        } else {
+            binding.emojiResult.setImageResource(R.drawable.ic_sad)
+        }
+
     }
 
     private fun listenerOnButtonRetry() {
