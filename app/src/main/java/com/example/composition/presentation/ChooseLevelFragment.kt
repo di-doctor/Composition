@@ -24,7 +24,6 @@ class ChooseLevelFragment : Fragment() {
     private var _binding : FragmentChooseLevelBinding? = null
     private val binding: FragmentChooseLevelBinding
         get() = _binding ?:throw RuntimeException("ChooseLevelFragment == null")
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,7 +31,6 @@ class ChooseLevelFragment : Fragment() {
         _binding = FragmentChooseLevelBinding.inflate(inflater,container,false)
         return binding.root
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         with(binding) {
@@ -61,17 +59,13 @@ class ChooseLevelFragment : Fragment() {
             .addToBackStack(GameFragment.NAME_GAME_FRAGMENT)
             .commit()
     }
-
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     companion object {
         const val NAME = "name"
         @JvmStatic
         fun newInstance() = ChooseLevelFragment()
-
     }
 }

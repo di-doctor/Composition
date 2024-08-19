@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="white_gray">#BCC5DF</color>
     <color name="background_dark">#ff000000</color>
+    <color name="string_wrong">#FA0000</color>
+    <color name="string_right">#14F104</color>
 </resources>

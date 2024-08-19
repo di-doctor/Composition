@@ -64,6 +64,7 @@ class GameViewModel(application:Application) : AndroidViewModel(application) {
         getSetting(level)
         startTimer()
         generateQuestion()
+        updateProgress()
     }
 
     fun chooseAnswer(number: Int) {
@@ -90,7 +91,6 @@ class GameViewModel(application:Application) : AndroidViewModel(application) {
             override fun onTick(millisUntilFinished: Long) {
                 _formattedTime.value = formatTime(millisUntilFinished)
             }
-
             override fun onFinish() {
                 finishGame()
             }
@@ -101,14 +101,14 @@ class GameViewModel(application:Application) : AndroidViewModel(application) {
     private fun formatTime(millisUntilFinished: Long): String {
         val second = millisUntilFinished / MILLIS_IN_SECONDS
         val minute = second / SECONDS_IN_MINUTE
-        val secondLeft = minute - second * SECONDS_IN_MINUTE
+        val secondLeft = second - minute * SECONDS_IN_MINUTE
         return String.format(format = "%02d:%02d", minute, secondLeft)
     }
 
     private fun generateQuestion() {
         _question.value = generateQuestionUseCase(gameSetting.maxSumValue)
-
     }
+
     private fun updateProgress(){
         val percent = (countOfRightAnswers/countOfQuestion.toDouble()*100).toInt()
         _percentOfRightAnswers.value = percent
@@ -123,8 +123,8 @@ class GameViewModel(application:Application) : AndroidViewModel(application) {
 
     private fun finishGame() {
         _gameResult.value = GameResult(
-            _enoughCountOfRightAnswers.value == true
-                    && _enoughPercentOfRightAnswers.value == true,
+            enoughCountOfRightAnswers.value == true
+                    && enoughPercentOfRightAnswers.value == true,
             countOfRightAnswers,
             countOfQuestion,
             gameSetting
