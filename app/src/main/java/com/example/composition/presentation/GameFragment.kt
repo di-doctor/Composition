@@ -14,7 +14,7 @@ import com.example.composition.databinding.FragmentGameBinding
 import com.example.composition.domain.entity.GameResult
 import com.example.composition.domain.entity.Level
 
-class GameFragment : Fragment() {
+class GameFragment() : Fragment() {
     private lateinit var level: Level
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
@@ -22,9 +22,8 @@ class GameFragment : Fragment() {
 
     private val viewModel: GameViewModel by lazy {
         ViewModelProvider(
-            this, ViewModelProvider.AndroidViewModelFactory
-                .getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
+            this, GameViewModelFactory(requireActivity().application, level)
+        ).get(GameViewModel::class.java)
     }
     private val tvOptions by lazy {
         mutableListOf<TextView>().apply {
@@ -44,8 +43,7 @@ class GameFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGameBinding.inflate(inflater, container, false)
         return binding.root
@@ -53,7 +51,6 @@ class GameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         observeOnViewModel()
-        viewModel.startGame(level)
     }
 
     private fun observeOnViewModel() {
@@ -87,8 +84,7 @@ class GameFragment : Fragment() {
                 if (it) {
                     binding.tvAnswersProgress.setTextColor(
                         ContextCompat.getColor(
-                            requireActivity(),
-                            R.color.string_right
+                            requireActivity(), R.color.string_right
                         )
                     )
                 }
@@ -102,18 +98,16 @@ class GameFragment : Fragment() {
                     ColorStateList.valueOf(colorWrong)
                 }
             }
-            minPercent.observe(viewLifecycleOwner){
+            minPercent.observe(viewLifecycleOwner) {
                 binding.progressBar.secondaryProgress = it
             }
         }
     }
 
     private fun launchGameFinishedFragment(gameResult: GameResult) {
-        requireActivity().supportFragmentManager
-            .beginTransaction()
+        requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_container, GameFinishedFragment.newInstance(gameResult))
-            .addToBackStack(null)
-            .commit()
+            .addToBackStack(null).commit()
     }
 
     private fun parseArgs() {
@@ -132,11 +126,10 @@ class GameFragment : Fragment() {
         const val NAME_GAME_FRAGMENT = "name_game_fragment"
 
         @JvmStatic
-        fun newInstance(level: Level) =
-            GameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_LEVEL, level)
-                }
+        fun newInstance(level: Level) = GameFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(KEY_LEVEL, level)
             }
+        }
     }
 }
