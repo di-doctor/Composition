@@ -3,7 +3,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.kotlinParser)
-
+    alias(libs.plugins.kotlinKapt)
+    alias(libs.plugins.navigationSaveArgs)
 
 }
 
@@ -51,4 +52,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui.ktx )
 }

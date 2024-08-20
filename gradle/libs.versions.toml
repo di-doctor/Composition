@@ -8,6 +8,7 @@ espresso-core = "3.6.1"
 appcompat = "1.7.0"
 material = "1.12.0"
 constraintlayout = "2.1.4"
+version-nav = "2.7.7"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -17,9 +18,15 @@ espresso-core = { group = "androidx.test.espresso", name = "espresso-core", vers
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+navigation-fragment-ktx = {group = "androidx.navigation",name = "navigation-fragment-ktx",version.ref = "version-nav"}
+navigation-ui-ktx = {group = "androidx.navigation", name= "navigation-ui-ktx", version.ref ="version-nav" }
+
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-kotlinParser = {id = "org.jetbrains.kotlin.plugin.parcelize",version = "2.0.20-RC2"}
+kotlinParser = { id = "org.jetbrains.kotlin.plugin.parcelize", version = "2.0.20-RC2" }
+kotlinKapt = { id = "org.jetbrains.kotlin.kapt", version = "2.0.10" }
+navigationSaveArgs = { id = "androidx.navigation.safeargs.kotlin", version = "2.7.7" }
+
 
